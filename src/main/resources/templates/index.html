@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Car List</title>
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<h1 style="text-align:center;">Car List</h1>
+<div style="text-align:center; margin-bottom: 20px;">
+    <a href="/create" class="button">Add New Car</a>
+</div>
+<table>
+    <thead>
+    <tr>
+        <th>Make</th><th>Model</th><th>Year</th><th>Color</th>
+        <th>Body Type</th><th>Engine Type</th><th>License Plate</th><th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="car : ${cars}">
+        <td th:text="${car.make}"></td>
+        <td th:text="${car.model}"></td>
+        <td th:text="${car.year}"></td>
+        <td th:text="${car.color}"></td>
+        <td th:text="${car.bodyType}"></td>
+        <td th:text="${car.engineType}"></td>
+        <td th:text="${car.licensePlate}"></td>
+        <td>
+            <a th:href="@{/edit/{id}(id=${car.id})}" class="button">Edit</a>
+            <a th:href="@{/delete/{id}(id=${car.id})}" class="button delete" onclick="return confirm('Are you sure to delete this car?')">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

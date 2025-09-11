@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans&display=swap');
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: #fff0f5; /* blush pink */
+    color: #4a4a4a;
+    margin: 0;
+    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ec407a; /* deeper pink */
+    margin-bottom: 25px;
+    text-shadow: 1px 1px 2px rgba(236, 64, 122, 0.3);
+}
+
+p {
+    font-size: 1.25rem;
+    margin-bottom: 40px;
+    color: #6a4a6a;
+}
+
+a {
+    background-color: #f8bbd0; /* soft pink */
+    color: #fff;
+    font-weight: 700;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(248, 187, 208, 0.5);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+}
+
+a:hover {
+    background-color: #ec407a;
+    box-shadow: 0 6px 14px rgba(236, 64, 122, 0.6);
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    p {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+
+    a {
+        padding: 10px 25px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 0.9rem;
+        margin-bottom: 25px;
+    }
+
+    a {
+        padding: 8px 20px;
+        font-size: 0.85rem;
+    }
+}
