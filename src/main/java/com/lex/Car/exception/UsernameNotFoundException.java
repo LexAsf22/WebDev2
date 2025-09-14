@@ -1,7 +1,7 @@
 package com.lex.Car.exception;
 
-public class UsernameNotFoundException extends RuntimeException{
-    UsernameNotFoundException(String message){
+public class UsernameNotFoundException extends RuntimeException {
+    public UsernameNotFoundException(String message) {
         super(message);
     }
 }

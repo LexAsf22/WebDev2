@@ -1,0 +1,302 @@
+/* main.css */
+
+/* Reset and Font */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Body Styling */
+body {
+    background: linear-gradient(135deg, #fff0f5, #ffe6f0); /* soft pink gradient */
+    color: #333;
+    min-height: 100vh;
+    padding: 20px 0;
+}
+
+/* Main Container */
+main {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Top Bar */
+.top-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.top-bar h1 {
+    font-size: 32px;
+    color: #c71585; /* medium violet red for luxury pink */
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Search Form */
+.search-form {
+    display: flex;
+    gap: 10px;
+}
+
+.search-form input[type="text"] {
+    padding: 10px 15px;
+    border-radius: 50px;
+    border: 2px solid #ffb6c1; /* soft pink border */
+    outline: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.search-form input[type="text"]:focus {
+    border-color: #ff69b4; /* hot pink */
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
+}
+
+.search-form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    background-color: #ff69b4; /* hot pink */
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.search-form button:hover {
+    background-color: #ff1493; /* deep pink */
+}
+
+/* Add Car Button */
+.btn.add-btn {
+    padding: 10px 20px;
+    border-radius: 50px;
+    background: linear-gradient(45deg, #ff69b4, #ff1493);
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn.add-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+}
+
+/* Table Container */
+.table-container {
+    overflow-x: auto;
+    background-color: #fff0f5;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(255, 182, 193, 0.4);
+    transition: all 0.3s ease;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px 10px;
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+}
+
+th {
+    background-color: #ffe6f0;
+    color: #c71585;
+    font-weight: bold;
+    border-bottom: 2px solid #ff69b4;
+    letter-spacing: 0.5px;
+}
+
+tr:nth-child(even) {
+    background-color: #fff0f5;
+}
+
+tr:hover {
+    background-color: #ffd1dc;
+    transition: background-color 0.3s ease;
+}
+
+/* Action Buttons */
+.btn.edit, .btn.delete {
+    padding: 5px 12px;
+    border-radius: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 12px;
+    color: #fff;
+    margin-right: 5px;
+    transition: all 0.3s ease;
+}
+
+.btn.edit {
+    background-color: #ff69b4;
+}
+
+.btn.edit:hover {
+    background-color: #ff1493;
+    transform: translateY(-2px);
+}
+
+.btn.delete {
+    background-color: #c71585;
+}
+
+.btn.delete:hover {
+    background-color: #ff69b4;
+    transform: translateY(-2px);
+}
+
+/* Logout Button */
+.logout-form {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.btn.logout {
+    padding: 10px 20px;
+    border-radius: 50px;
+    background: linear-gradient(45deg, #ff69b4, #ff1493);
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn.logout:hover {
+    box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .top-bar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    th, td {
+        font-size: 12px;
+        padding: 10px 8px;
+    }
+
+    .btn.add-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Login & Register Form Styling */
+.login-form {
+    width: 100%;
+    max-width: 400px;
+    margin: 80px auto;
+    background-color: #fff0f5; /* soft pink background */
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(255, 182, 193, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.login-form h2 {
+    color: #c71585;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 28px;
+}
+
+/* Input fields */
+.login-form label {
+    font-weight: bold;
+    color: #c71585;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid #ffb6c1;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.login-form input:focus {
+    border-color: #ff69b4;
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
+}
+
+/* Buttons */
+.login-form button {
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(45deg, #ff69b4, #ff1493);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+}
+
+/* Links */
+.login-form a {
+    text-align: center;
+    color: #c71585;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.login-form a:hover {
+    color: #ff1493;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive for login/register */
+@media (max-width: 480px) {
+    .login-form {
+        padding: 20px;
+    }
+
+    .login-form h2 {
+        font-size: 24px;
+    }
+}
+

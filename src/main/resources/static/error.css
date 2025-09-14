@@ -1,83 +1,71 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans&display=swap');
+/* error.css */
 
-body {
-    font-family: 'Open Sans', sans-serif;
-    background: #fff0f5; /* blush pink */
-    color: #4a4a4a;
+/* Basic Reset */
+* {
     margin: 0;
-    padding: 40px 20px;
-    min-height: 100vh;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Body Styling */
+body {
+    background: linear-gradient(135deg, #ffe6f0, #ffd1dc);
+    height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+/* Container Styling */
+.container {
+    background-color: #fff0f5; /* soft pink */
+    padding: 40px 60px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(255, 182, 193, 0.5);
     text-align: center;
+    max-width: 500px;
+    animation: fadeIn 1s ease-in-out;
 }
 
-h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    font-weight: 700;
-    color: #ec407a; /* deeper pink */
-    margin-bottom: 25px;
-    text-shadow: 1px 1px 2px rgba(236, 64, 122, 0.3);
+/* Heading Styling */
+.container h1 {
+    color: #ff69b4; /* hot pink */
+    font-size: 28px;
+    margin-bottom: 20px;
 }
 
-p {
-    font-size: 1.25rem;
-    margin-bottom: 40px;
-    color: #6a4a6a;
+/* Paragraph Styling */
+.container p {
+    color: #d147a3; /* darker pink */
+    font-size: 18px;
+    margin-bottom: 30px;
 }
 
-a {
-    background-color: #f8bbd0; /* soft pink */
+/* Link Styling */
+.container a {
+    text-decoration: none;
+    background-color: #ffb6c1; /* light pink */
     color: #fff;
-    font-weight: 700;
     padding: 12px 30px;
     border-radius: 50px;
-    text-decoration: none;
-    box-shadow: 0 4px 8px rgba(248, 187, 208, 0.5);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    user-select: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
 }
 
-a:hover {
-    background-color: #ec407a;
-    box-shadow: 0 6px 14px rgba(236, 64, 122, 0.6);
-    color: #fff;
-    cursor: pointer;
+.container a:hover {
+    background-color: #ff69b4; /* hot pink */
+    transform: scale(1.05);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    h1 {
-        font-size: 2.2rem;
+/* Fade-in Animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
     }
-
-    p {
-        font-size: 1rem;
-        margin-bottom: 30px;
-    }
-
-    a {
-        padding: 10px 25px;
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.8rem;
-        margin-bottom: 20px;
-    }
-
-    p {
-        font-size: 0.9rem;
-        margin-bottom: 25px;
-    }
-
-    a {
-        padding: 8px 20px;
-        font-size: 0.85rem;
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

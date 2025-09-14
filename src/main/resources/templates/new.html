@@ -3,60 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Car</title>
+    <title>Add Car</title>
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
-
 <body>
-<form th:action="@{/update}" th:object="${car}" method="post">
-    <h1>Edit Car</h1>
 
-    <!-- Hidden ID so update knows which car -->
-    <input type="hidden" th:field="*{id}"/>
+<form th:action="@{/save}" th:object="${car}" method="post">
+    <h1>Add New Car</h1>
 
     <label for="make">Make:</label>
     <input id="make" type="text" th:field="*{make}"/>
-    <div th:if="${#fields.hasErrors('make')}" th:errors="*{make}" class="error"></div>
+    <div class="error" th:if="${#fields.hasErrors('make')}" th:errors="*{make}" ></div>
 
     <label for="model">Model:</label>
     <input id="model" type="text" th:field="*{model}"/>
     <div class="error" th:if="${#fields.hasErrors('model')}" th:errors="*{model}" ></div>
 
     <label for="year">Year:</label>
-    <input id="year" type="number" th:field="*{year}" min="1900" max="2100"/>
-    <div th:if="${#fields.hasErrors('year')}" th:errors="*{year}" class="error"></div>
+    <input id="year" type="number" th:field="*{year}"/>
+    <div class="error" th:if="${#fields.hasErrors('year')}" th:errors="*{year}" ></div>
 
     <label for="licensePlateNumber">License Plate Number:</label>
     <input id="licensePlateNumber" type="text" th:field="*{licensePlateNumber}"/>
-    <div th:if="${#fields.hasErrors('licensePlateNumber')}" th:errors="*{licensePlateNumber}" class="error"></div>
+    <div class="error" th:if="${#fields.hasErrors('licensePlateNumber')}" th:errors="*{licensePlateNumber}"></div>
 
     <label for="color">Color:</label>
     <input id="color" type="text" th:field="*{color}"/>
-    <div th:if="${#fields.hasErrors('color')}" th:errors="*{color}" class="error"></div>
+    <div class="error" th:if="${#fields.hasErrors('color')}" th:errors="*{color}" ></div>
 
     <label for="bodyType">Body Type:</label>
     <select id="bodyType" th:field="*{bodyType}">
-        <option  value="" disabled>-- Select Body Type --</option>
+        <option value="" disabled selected>-- Select Body Type --</option>
         <option th:each="t : ${body}" th:value="${t}" th:text="${t}"></option>
     </select>
-    <div th:if="${#fields.hasErrors('bodyType')}" th:errors="*{bodyType}" class="error"></div>
+    <div class="error" th:if="${#fields.hasErrors('bodyType')}" th:errors="*{bodyType}" ></div>
 
     <label for="engineType">Engine Type:</label>
     <select id="engineType" th:field="*{engineType}">
-        <option value="" disabled>-- Select Engine Type --</option>
+        <option value="" disabled selected>-- Select Engine Type --</option>
         <option th:each="t : ${types}" th:value="${t}" th:text="${t}"></option>
     </select>
-    <div th:if="${#fields.hasErrors('engineType')}" th:errors="*{engineType}" class="error"></div>
+    <div class="error" th:if="${#fields.hasErrors('engineType')}" th:errors="*{engineType}" ></div>
 
     <label for="transmission">Transmission:</label>
     <select id="transmission" th:field="*{transmission}">
-        <option value="" disabled>-- Select Transmission --</option>
+        <option value="" disabled selected>-- Select Transmission --</option>
         <option th:each="t : ${sizes}" th:value="${t}" th:text="${t}"></option>
     </select>
-    <div th:if="${#fields.hasErrors('transmission')}" th:errors="*{transmission}" class="error"></div>
+    <div class="error" th:if="${#fields.hasErrors('transmission')}" th:errors="*{transmission}" ></div>
 
-    <button type="submit">Update Car</button>
+    <button type="submit">Save Car</button>
     <a href="/">Cancel</a>
 </form>
+
 </body>
 </html>

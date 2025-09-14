@@ -1,36 +1,70 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Car List</title>
-    <link rel="stylesheet" href="/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cars</title>
+    <link rel="stylesheet" th:href="@{/main.css}">
 </head>
 <body>
-<h1 style="text-align:center;">Car List</h1>
-<div style="text-align:center; margin-bottom: 20px;">
-    <a href="/create" class="button">Add New Car</a>
-</div>
-<table>
-    <thead>
-    <tr>
-        <th>Make</th><th>Model</th><th>Year</th><th>Color</th>
-        <th>Body Type</th><th>Engine Type</th><th>License Plate</th><th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="car : ${cars}">
-        <td th:text="${car.make}"></td>
-        <td th:text="${car.model}"></td>
-        <td th:text="${car.year}"></td>
-        <td th:text="${car.color}"></td>
-        <td th:text="${car.bodyType}"></td>
-        <td th:text="${car.engineType}"></td>
-        <td th:text="${car.licensePlate}"></td>
-        <td>
-            <a th:href="@{/edit/{id}(id=${car.id})}" class="button">Edit</a>
-            <a th:href="@{/delete/{id}(id=${car.id})}" class="button delete" onclick="return confirm('Are you sure to delete this car?')">Delete</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<main>
+    <div class="top-bar">
+        <h1>List of Cars</h1>
+
+        <form th:action="@{/}" method="get" class="search-form">
+            <input type="text" name="search" placeholder="Search cars..." th:value="${search}">
+            <button type="submit">Search</button>
+        </form>
+
+        <a th:href="@{/new}" class="btn add-btn">Add Car</a>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>License Plate</th>
+                <th>Color</th>
+                <th>Body Type</th>
+                <th>Engine Type</th>
+                <th>Transmission</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="car, iterStat : ${cars}">
+                <td th:text="${iterStat.index + 1}"></td>
+                <td th:text="${car.make}"></td>
+                <td th:text = "${car.model}"></td>
+                <td th:text="${car.year}"></td>
+                <td th:text="${car.licensePlateNumber}"></td>
+                <td th:text="${car.color}"></td>
+                <td th:text="${car.bodyType}"></td>
+                <td th:text="${car.engineType}"></td>
+                <td th:text="${car.transmission}"></td>
+                <td>
+                    <!-- Optional: restore view link if you want -->
+                    <!-- <a th:href="@{/car/{id}(id=${car.id})}" class="btn view">View</a> -->
+                    <a th:href="@{/edit(id=${car.id})}" class="btn edit">Edit</a>
+                    <a th:href="@{/delete(id=${car.id})}" class="btn delete"
+                       onclick="return confirm('Are you sure you want to delete this car?');">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(cars)}">
+                <td colspan="9">No cars found.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <form th:action="@{/logout}" method="post" class="logout-form">
+        <button type="submit" class="btn logout">Logout</button>
+    </form>
+</main>
 </body>
 </html>

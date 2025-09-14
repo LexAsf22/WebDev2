@@ -9,7 +9,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public String handleResourceNotFound(ResourceNotFoundException ex, Model model) {
-        model.addAttribute("errorMessage", ex.getMessage());
-        return "error/not-found";  // Thymeleaf template
+        model.addAttribute("message", ex.getMessage());
+        return "error/error";  // points to error/error.html
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String handleGenericException(Exception ex, Model model) {
+        model.addAttribute("message", "Error: Unable to complete your request. Please try again later.");
+        return "error/error";
     }
 }
