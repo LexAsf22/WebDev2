@@ -35,13 +35,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/css/**", "/register").permitAll()   // allow public access
-                        .requestMatchers("/login").anonymous()                // login only for non-authenticated users
-                        .anyRequest().authenticated()                         // everything else requires login
+                        .requestMatchers("/style.css", "/main.css", "/error.css", "/register").permitAll() // 👈 add CSS files here
+                        .requestMatchers("/login").anonymous()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
                         .loginPage("/login")
-                        .defaultSuccessUrl("/", true)                         // redirect after login
+                        .defaultSuccessUrl("/", true)
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -52,4 +52,5 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 }
