@@ -14,7 +14,7 @@ public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @NotBlank(message = "Make cannot be empty")
     @Size(min = 2, max = 50)
@@ -38,7 +38,7 @@ public class Car {
     private String engineType;
     private String transmission;
 
-    public Car(Integer id, String make, String model, int year, String licensePlateNumber, String color, String bodyType, String engineType, String transmission) {
+    public Car(long id, String make, String model, int year, String licensePlateNumber, String color, String bodyType, String engineType, String transmission) {
         this.id = id;
         this.make = make;
         this.model = model;
@@ -52,10 +52,10 @@ public class Car {
 
     public Car() {}
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
-    public void setId(Integer id) { this.id = id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getMake() {
         return make;

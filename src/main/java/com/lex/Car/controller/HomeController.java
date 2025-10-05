@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+
+
 
 import java.util.List;
 
@@ -26,7 +29,7 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String index(@RequestParam(defaultValue = "") String search, HttpSession session, Model model) {
+    public String index(@RequestParam(defaultValue = "") String search, HttpSession session, Model model, Authentication auth) {
         List<Car> cars;
 
         if (search.isEmpty()) {
@@ -39,23 +42,31 @@ public class HomeController {
         model.addAttribute("cars", cars);
         model.addAttribute("search", search);
 
+        if (auth != null){
+            model.addAttribute("username", auth.getName());
+        }
+
         return "index";
     }
 
     @GetMapping("/delete")
-    public String deleteCar(@RequestParam int id, HttpSession session) {
+    public String deleteCar(@RequestParam long id, HttpSession session) {
         carRepository.deleteById(id);
         return "redirect:/";
     }
 
     @GetMapping("/new")
-    public String add(Model model, HttpSession session) {
+    public String add(Model model, HttpSession session, Authentication auth) {
         CarDTO carDTO = new CarDTO();
         model.addAttribute("car", carDTO);
         model.addAttribute("activeMenu", "new");
         model.addAttribute("body", new String[]{"Sedan", "SUV", "Hatchback", "Pickup", "Coupe", "Convertible"});
         model.addAttribute("types", new String[]{"Gasoline", "Diesel", "Electric", "Hybrid"});
         model.addAttribute("sizes", new String[]{"Automatic", "Manual"});
+
+        if (auth != null) {
+            model.addAttribute("username", auth.getName());
+        }
         return "new";
     }
 
@@ -63,7 +74,7 @@ public class HomeController {
     public String save(@ModelAttribute("car") @Valid CarDTO carDTO,
                        BindingResult bindingResult,
                        HttpSession session,
-                       Model model) {
+                       Model model, Authentication auth) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("car", carDTO);
@@ -88,7 +99,7 @@ public class HomeController {
     }
 
     @GetMapping("/edit")
-    public String edit(@RequestParam int id, Model model, HttpSession session) {
+    public String edit(@RequestParam long id, Model model, HttpSession session, Authentication auth) {
         Car c = carRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Car not found with id: " + id));
 
@@ -107,6 +118,10 @@ public class HomeController {
         model.addAttribute("body", new String[]{"Sedan", "SUV", "Hatchback", "Pickup", "Coupe", "Convertible"});
         model.addAttribute("types", new String[]{"Gasoline", "Diesel", "Electric", "Hybrid"});
         model.addAttribute("sizes", new String[]{"Automatic", "Manual"});
+
+        if (auth != null){
+            model.addAttribute("username", auth.getName());
+        }
         return "edit";
     }
 
@@ -114,7 +129,7 @@ public class HomeController {
     public String update(@ModelAttribute("car") @Valid CarDTO carDTO,
                          BindingResult bindingResult,
                          HttpSession session,
-                         Model model) {
+                         Model model, Authentication auth) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("car", carDTO);

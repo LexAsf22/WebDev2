@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public class CarDTO {
 
-    private int id;
+    private Long id;
 
     @NotBlank(message = "Make cannot be empty")
     private String make;
@@ -30,7 +30,7 @@ public class CarDTO {
 
     public CarDTO() {}
 
-    public CarDTO(int id, String make, String model, int year, String licensePlateNumber,
+    public CarDTO(long id, String make, String model, int year, String licensePlateNumber,
                   String color, String bodyType, String engineType, String transmission) {
         this.id = id;
         this.make = make;
@@ -43,10 +43,10 @@ public class CarDTO {
         this.transmission = transmission;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(int id) { this.id = id; }
+    public void setId(long id) { this.id = id; }
 
     public String getMake() {
         return make;
