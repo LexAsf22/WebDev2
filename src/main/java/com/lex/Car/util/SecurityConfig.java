@@ -36,27 +36,28 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
+                // Disable CSRF only for APIs, keep it for web forms
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
+
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/style.css", "/main.css", "/error.css", "/register").permitAll()
-                        .requestMatchers("/login").anonymous()
+                        .requestMatchers("/register", "/style.css", "/main.css", "/error.css", "/login").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                        .anyRequest().authenticated() // everything else needs login
                 )
+
                 .formLogin(login -> login
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/", true)
+                        .loginPage("/login")               // custom login page
+                        .defaultSuccessUrl("/", true)      // redirect after login
                         .permitAll()
                 )
+
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout")
+                        .logoutSuccessUrl("/login?logout") // redirect after logout
                         .permitAll()
                 );
 
         return http.build();
     }
 
-
 }
-
