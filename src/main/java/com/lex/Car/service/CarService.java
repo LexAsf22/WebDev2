@@ -17,47 +17,33 @@ public class CarService {
         this.carRepository = carRepository;
     }
 
-// ===== Original Working Methods =====
-
-    public List<Car> findAll() {
+    public List<Car> getAllCars() {
         return carRepository.findAll();
     }
 
-    public Car findById(Long id) {
+
+    public Car getCarById(Long id) {
         return carRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Car with ID " + id + " not found."));
+                .orElseThrow(() -> new ResourceNotFoundException("Car", Math.toIntExact(id)));
     }
 
-    public Car save(CarDTO carDTO) {
-        Car car = new Car();
+    public void update(Long id, CarDTO carDTO) {
+        Car car = carRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Car", Math.toIntExact(id)));
+
+        car.setLicensePlateNumber(carDTO.getLicensePlateNumber());
         car.setMake(carDTO.getMake());
         car.setModel(carDTO.getModel());
         car.setYear(carDTO.getYear());
-        car.setLicensePlateNumber(carDTO.getLicensePlateNumber());
         car.setColor(carDTO.getColor());
         car.setBodyType(carDTO.getBodyType());
         car.setEngineType(carDTO.getEngineType());
         car.setTransmission(carDTO.getTransmission());
-        return carRepository.save(car);
+
+        carRepository.save(car);
     }
 
-    public Car updateCar(Long id, CarDTO carDTO) {
-        Car car = findById(id);
-        car.setMake(carDTO.getMake());
-        car.setModel(carDTO.getModel());
-        car.setYear(carDTO.getYear());
-        car.setLicensePlateNumber(carDTO.getLicensePlateNumber());
-        car.setColor(carDTO.getColor());
-        car.setBodyType(carDTO.getBodyType());
-        car.setEngineType(carDTO.getEngineType());
-        car.setTransmission(carDTO.getTransmission());
-        return carRepository.save(car);
-    }
-
-    public void deleteCar(Long id) {
-        if (!carRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Car with ID " + id + " not found.");
-        }
+    public void delete(Long id) {
         carRepository.deleteById(id);
     }
 
@@ -68,22 +54,43 @@ public class CarService {
                 );
     }
 
-// ===== Added for Compatibility with Teacher's Code =====
-
-    public List<Car> getAllCars() {
-        return findAll();
+    public List<Car> findAll() {
+        return carRepository.findAll();
     }
 
-    public Car getCarById(Long id) {
-        return findById(id);
+    public Car save(CarDTO car){
+        Car newCar = new Car();
+        newCar.setLicensePlateNumber(car.getLicensePlateNumber());
+        newCar.setMake(car.getMake());
+        newCar.setModel(car.getModel());
+        newCar.setYear(car.getYear());
+        newCar.setColor(car.getColor());
+        newCar.setBodyType(car.getBodyType());
+        newCar.setEngineType(car.getEngineType());
+        newCar.setTransmission(car.getTransmission());
+        return carRepository.save(newCar);
     }
 
-    public void update(Long id, CarDTO carDTO) {
-        updateCar(id, carDTO);
+    public Car updateCar(Long id, CarDTO carDTO){
+        Car car = carRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Car", Math.toIntExact(id)));
+        car.setLicensePlateNumber(carDTO.getLicensePlateNumber());
+        car.setMake(carDTO.getMake());
+        car.setModel(carDTO.getModel());
+        car.setYear(carDTO.getYear());
+        car.setColor(carDTO.getColor());
+        car.setBodyType(carDTO.getBodyType());
+        car.setEngineType(carDTO.getEngineType());
+        car.setTransmission(carDTO.getTransmission());
+        return carRepository.save(car);
     }
 
-    public void delete(Long id) {
-        deleteCar(id);
+    public void deleteCar(Long id) {
+        Car car = carRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Car", Math.toIntExact(id)));
+        carRepository.delete(car);
     }
 
+    public Car findById(Long id){
+        return carRepository.findById(id).orElse(null);
+    }
 }

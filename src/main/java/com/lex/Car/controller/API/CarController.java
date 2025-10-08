@@ -1,6 +1,7 @@
 package com.lex.Car.controller.API;
 
 import com.lex.Car.DTO.CarDTO;
+import com.lex.Car.exception.ResourceNotFoundException;
 import com.lex.Car.model.Car;
 import com.lex.Car.service.CarService;
 import jakarta.validation.Valid;
@@ -12,27 +13,24 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://127.0.0.1:3000")
 public class CarController {
-
     private final CarService carService;
 
     public CarController(CarService carService) {
         this.carService = carService;
     }
 
-    // GET all cars
     @GetMapping("/cars")
-    public List<Car> getAllCars() {
+    public List<Car> getAllCars(){
         return carService.findAll();
     }
 
-    // POST a new car
     @PostMapping("/cars")
-    public Car newCar(@Valid @RequestBody CarDTO car) {
+    public Car newCar(@Valid @RequestBody CarDTO car){
         return carService.save(car);
     }
 
-    // PUT - update existing car by ID
     @PutMapping("/cars/{id}")
     public Car updateCar(@PathVariable Long id, @Valid @RequestBody CarDTO car) {
         if (carService.findById(id) == null) {
@@ -41,14 +39,13 @@ public class CarController {
         return carService.updateCar(id, car);
     }
 
-    // DELETE - remove car by ID
+
     @DeleteMapping("/cars/{id}")
-    public void deleteCar(@PathVariable Long id) {
-        if (carService.findById(id) == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Car with ID " + id + " not found.");
+    public void deleteCar(@PathVariable Long id){
+        if(carService.findById(id) == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Car with ID "+ id + " not found.");
         }
         carService.deleteCar(id);
     }
-
 
 }

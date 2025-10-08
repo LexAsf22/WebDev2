@@ -1,0 +1,142 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Helvetica Neue', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0a0a0a; /* Deep black */
+    color: #ddd;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Main Container */
+.container {
+    background-color: #111; /* Dark container */
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3); /* Lexus gold glow */
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Header */
+.container h1 {
+    text-align: center;
+    color: #d4af37; /* Lexus gold */
+    margin-bottom: 40px;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+/* Form Styling */
+.car-form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Labels */
+.car-form label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #ccc;
+    letter-spacing: 0.05em;
+}
+
+/* Inputs & Selects */
+.car-form input[type="text"],
+.car-form input[type="number"],
+.car-form select {
+    padding: 12px 15px;
+    margin-bottom: 25px;
+    border: 1.5px solid #444;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #1a1a1a;
+    color: #eee;
+    transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.car-form input::placeholder,
+.car-form select::placeholder {
+    color: #777;
+}
+
+.car-form input:focus,
+.car-form select:focus {
+    outline: none;
+    border-color: #d4af37; /* Lexus gold highlight */
+    background-color: #222;
+}
+
+/* Error Messages */
+.error {
+    color: #e63946; /* Lexus red accent */
+    font-size: 0.9rem;
+    margin-top: -18px;
+    margin-bottom: 18px;
+    font-weight: 600;
+}
+
+/* Add Car Button */
+.add-button {
+    background-color: #d4af37; /* Lexus gold */
+    color: #0a0a0a;
+    padding: 14px 0;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    box-shadow: 0 6px 15px rgba(212, 175, 55, 0.5);
+    margin-top: 10px;
+}
+
+.add-button:hover {
+    background-color: #bfa133;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.8);
+}
+
+/* Back Link */
+.back-link {
+    display: inline-block;
+    margin-top: 30px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    color: #d4af37;
+    font-weight: 600;
+    transition: color 0.3s ease-in-out, text-decoration 0.3s ease-in-out;
+    letter-spacing: 0.06em;
+}
+
+.back-link:hover {
+    color: #bfa133;
+    text-decoration: underline;
+}
+
+/* Responsive Layout */
+@media (max-width: 600px) {
+    .container {
+        padding: 30px 20px;
+    }
+
+    .add-button {
+        width: 100%;
+    }
+
+    .back-link {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+}

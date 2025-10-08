@@ -1,0 +1,119 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0a0a0a; /* Lexus dark */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ddd;
+}
+
+/* Container */
+.register-container {
+    background-color: #111; /* Dark container */
+    padding: 40px 30px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3); /* Lexus gold glow */
+    text-align: center;
+}
+
+/* Header */
+.register-container h2 {
+    margin-bottom: 30px;
+    color: #d4af37; /* Lexus gold */
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Form Styling */
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Form Group */
+.form-group {
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #ccc;
+    letter-spacing: 0.05em;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1.5px solid #444;
+    background-color: #1a1a1a;
+    color: #eee;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.form-group input::placeholder {
+    color: #777;
+}
+
+.form-group input:focus {
+    border-color: #d4af37; /* Lexus gold highlight */
+    outline: none;
+    background-color: #222;
+}
+
+/* Register Button */
+.btn {
+    background-color: #d4af37; /* Lexus gold */
+    color: #0a0a0a;
+    padding: 14px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 15px rgba(212, 175, 55, 0.5);
+}
+
+.btn:hover {
+    background-color: #bfa133;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.8);
+}
+
+/* Login Link */
+.login-link {
+    margin-top: 30px;
+    font-size: 1rem;
+    color: #d4af37;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.login-link a {
+    color: #d4af37;
+    text-decoration: none;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.login-link a:hover {
+    color: #bfa133;
+    text-decoration: underline;
+}

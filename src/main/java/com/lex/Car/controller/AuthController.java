@@ -3,9 +3,7 @@ package com.lex.Car.controller;
 import com.lex.Car.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class AuthController {
@@ -24,7 +22,7 @@ public class AuthController {
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new Object());
-        return "register"; // register.html
+        return "register";
     }
 
     @PostMapping("/register")
@@ -32,5 +30,4 @@ public class AuthController {
         userService.registerUser(username, password);
         return "redirect:/login";
     }
-
 }

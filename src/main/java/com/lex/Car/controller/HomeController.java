@@ -39,23 +39,15 @@ public class HomeController {
     @GetMapping("/add")
     public String addForm(Model model) {
         model.addAttribute("carDTO", new CarDTO());
-        model.addAttribute("bodyTypes", new String[]{"Sedan", "SUV", "Hatchback", "Pickup", "Coupe", "Convertible"});
-        model.addAttribute("engineTypes", new String[]{"Gasoline", "Diesel", "Electric", "Hybrid"});
-        model.addAttribute("transmissions", new String[]{"Automatic", "Manual"});
         return "new";
     }
 
     @PostMapping("/save")
     public String saveCar(@Valid @ModelAttribute("carDTO") CarDTO carDTO,
-                          BindingResult result,
-                          Model model) {
+                          BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute("bodyTypes", new String[]{"Sedan", "SUV", "Hatchback", "Pickup", "Coupe", "Convertible"});
-            model.addAttribute("engineTypes", new String[]{"Gasoline", "Diesel", "Electric", "Hybrid"});
-            model.addAttribute("transmissions", new String[]{"Automatic", "Manual"});
             return "new";
         }
-
         carService.save(carDTO);
         return "redirect:/";
     }
@@ -71,11 +63,10 @@ public class HomeController {
         Car car = carService.getCarById(id);
 
         CarDTO carDTO = new CarDTO();
-        carDTO.setId(car.getId());
+        carDTO.setLicensePlateNumber(car.getLicensePlateNumber());
         carDTO.setMake(car.getMake());
         carDTO.setModel(car.getModel());
         carDTO.setYear(car.getYear());
-        carDTO.setLicensePlateNumber(car.getLicensePlateNumber());
         carDTO.setColor(car.getColor());
         carDTO.setBodyType(car.getBodyType());
         carDTO.setEngineType(car.getEngineType());
@@ -83,28 +74,28 @@ public class HomeController {
 
         model.addAttribute("carDTO", carDTO);
         model.addAttribute("carId", id);
-        model.addAttribute("bodyTypes", new String[]{"Sedan", "SUV", "Hatchback", "Pickup", "Coupe", "Convertible"});
-        model.addAttribute("engineTypes", new String[]{"Gasoline", "Diesel", "Electric", "Hybrid"});
-        model.addAttribute("transmissions", new String[]{"Automatic", "Manual"});
 
         return "edit";
     }
 
     @PostMapping("/update/{id}")
-    public String updateCar(@PathVariable Long id,
-                            @Valid @ModelAttribute("carDTO") CarDTO carDTO,
-                            BindingResult result,
-                            Model model) {
+    public String storeUpdateCar(@PathVariable Long id,
+                                 @Valid @ModelAttribute("carDTO") CarDTO carDTO,
+                                 BindingResult result,
+                                 Model model) {
         if (result.hasErrors()) {
             model.addAttribute("carId", id);
-            model.addAttribute("bodyTypes", new String[]{"Sedan", "SUV", "Hatchback", "Pickup", "Coupe", "Convertible"});
-            model.addAttribute("engineTypes", new String[]{"Gasoline", "Diesel", "Electric", "Hybrid"});
-            model.addAttribute("transmissions", new String[]{"Automatic", "Manual"});
             return "edit";
         }
-
         carService.update(id, carDTO);
         return "redirect:/";
     }
 
+    @GetMapping("/edit-empty")
+    public String editEmptyCar(@RequestParam Long id, Model model) {
+        CarDTO carDTO = new CarDTO();
+        model.addAttribute("carDTO", carDTO);
+        model.addAttribute("carId", id);
+        return "edit";
+    }
 }

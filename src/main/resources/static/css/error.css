@@ -1,0 +1,90 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Helvetica Neue', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0a0a0a;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container */
+.error-container {
+    text-align: center;
+    padding: 50px 40px;
+    max-width: 600px;
+    width: 90%;
+    background: #111;
+    box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3); /* subtle gold glow */
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Error Title */
+.error-title {
+    font-size: 2.75rem;
+    font-weight: 600;
+    color: #d4af37; /* Lexus gold */
+    margin-bottom: 20px;
+    letter-spacing: 1.2px;
+}
+
+/* Error Description */
+.error-display {
+    font-size: 1.15rem;
+    color: #bbb;
+    margin-bottom: 25px;
+}
+
+/* Optional Dynamic Message */
+.message {
+    font-size: 1rem;
+    color: #888;
+    margin-bottom: 35px;
+}
+
+/* Home Link Button */
+.home-link {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1rem;
+    color: #0a0a0a;
+    background-color: #d4af37;
+    padding: 14px 28px;
+    border-radius: 6px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
+}
+
+.home-link:hover {
+    background-color: #bfa133;
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(212, 175, 55, 0.7);
+}
+
+/* Responsive Touch */
+@media (max-width: 500px) {
+    .error-title {
+        font-size: 2rem;
+    }
+
+    .error-display,
+    .message {
+        font-size: 0.95rem;
+    }
+
+    .home-link {
+        padding: 12px 24px;
+        font-size: 0.95rem;
+    }
+}

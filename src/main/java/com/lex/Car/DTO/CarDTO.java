@@ -6,85 +6,94 @@ import jakarta.validation.constraints.NotBlank;
 
 public class CarDTO {
 
-    private Long id;
+    @NotBlank(message = "License plate number is required")
+    private String licensePlateNumber;
 
-    @NotBlank(message = "Make cannot be empty")
+    @NotBlank(message = "Make is required")
     private String make;
 
     @NotBlank(message = "Model is required")
     private String model;
 
-    @Min(1886)
-    @Max(2025)
+    @Min(value = 1990, message = "Year must be no earlier than 1990")
+    @Max(value = 2100, message = "Year must be realistic")
     private int year;
 
-    @NotBlank(message = "License Plate cannot be empty")
-    private String licensePlateNumber;
-
-    @NotBlank(message = "Pick a color")
+    @NotBlank(message = "Color is required")
     private String color;
 
+    @NotBlank(message = "Body type is required")
     private String bodyType;
+
+    @NotBlank(message = "Engine type is required")
     private String engineType;
+
+    @NotBlank(message = "Transmission type is required")
     private String transmission;
 
-    public CarDTO() {}
-
-    public CarDTO(long id, String make, String model, int year, String licensePlateNumber,
-                  String color, String bodyType, String engineType, String transmission) {
-        this.id = id;
-        this.make = make;
-        this.model = model;
-        this.year = year;
-        this.licensePlateNumber = licensePlateNumber;
-        this.color = color;
-        this.bodyType = bodyType;
-        this.engineType = engineType;
-        this.transmission = transmission;
-    }
-
-    public Long getId() {
-        return id;
-    }
-    public void setId(long id) { this.id = id; }
-
-    public String getMake() {
-        return make;
-    }
-    public void setMake(String make) { this.make = make; }
-
-    public String getModel() {
-        return model;
-    }
-    public void setModel(String model) { this.model = model; }
-
-    public int getYear() {
-        return year;
-    }
-    public void setYear(int year) { this.year = year; }
+    // Getters and Setters
 
     public String getLicensePlateNumber() {
         return licensePlateNumber;
     }
-    public void setLicensePlateNumber(String licensePlateNumber) { this.licensePlateNumber = licensePlateNumber; }
+
+    public void setLicensePlateNumber(String licensePlateNumber) {
+        this.licensePlateNumber = licensePlateNumber;
+    }
+
+    public String getMake() {
+        return make;
+    }
+
+    public void setMake(String make) {
+        this.make = make;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
 
     public String getColor() {
         return color;
     }
-    public void setColor(String color) { this.color = color; }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 
     public String getBodyType() {
         return bodyType;
     }
-    public void setBodyType(String bodyType) { this.bodyType = bodyType; }
+
+    public void setBodyType(String bodyType) {
+        this.bodyType = bodyType;
+    }
 
     public String getEngineType() {
         return engineType;
     }
-    public void setEngineType(String engineType) { this.engineType = engineType; }
+
+    public void setEngineType(String engineType) {
+        this.engineType = engineType;
+    }
 
     public String getTransmission() {
         return transmission;
     }
-    public void setTransmission(String transmission) { this.transmission = transmission; }
+
+    public void setTransmission(String transmission) {
+        this.transmission = transmission;
+    }
 }

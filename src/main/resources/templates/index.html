@@ -1,38 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cars</title>
-    <link rel="stylesheet" th:href="@{/main.css}">
+    <title>Car List</title>
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-<main>
+<div class="container">
+    <h1 class="page-header">Car List</h1>
 
-    <div class="user-info" th:if="${username != null}">
-        <p>Welcome, <span th:text="${username}">User</span> 👋</p>
-    </div>
-
-    <div class="top-bar">
-        <h1>List of Cars</h1>
-
-        <form th:action="@{/}" method="get" class="search-form">
-            <input type="text" name="search" placeholder="Search cars..." th:value="${search}">
+    <div class="top-row">
+        <form class="search-form" th:action="@{/}" method="get">
+            <input type="text" name="search" placeholder="Search cars..." th:value="${param.search}">
             <button type="submit">Search</button>
         </form>
 
-        <a th:href="@{/new}" class="btn add-btn">Add Car</a>
+        <a class="add-btn" th:href="@{/add}">+ Add New Car</a>
     </div>
 
     <div class="table-container">
         <table>
             <thead>
             <tr>
-                <th>ID</th>
+                <th>Car ID</th>
+                <th>License Plate</th>
                 <th>Make</th>
                 <th>Model</th>
                 <th>Year</th>
-                <th>License Plate</th>
                 <th>Color</th>
                 <th>Body Type</th>
                 <th>Engine Type</th>
@@ -41,24 +34,23 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="car, iterStat : ${cars}">
-                <td th:text="${iterStat.index + 1}"></td>
+            <tr th:each="car : ${cars}">
+                <td th:text="${car.id}"></td>
+                <td th:text="${car.licensePlateNumber}"></td>
                 <td th:text="${car.make}"></td>
                 <td th:text="${car.model}"></td>
                 <td th:text="${car.year}"></td>
-                <td th:text="${car.licensePlateNumber}"></td>
                 <td th:text="${car.color}"></td>
                 <td th:text="${car.bodyType}"></td>
                 <td th:text="${car.engineType}"></td>
                 <td th:text="${car.transmission}"></td>
-                <td>
-                    <a th:href="@{/edit(id=${car.id})}" class="btn edit">Edit</a>
-                    <a th:href="@{/delete(id=${car.id})}" class="btn delete"
-                       onclick="return confirm('Are you sure you want to delete this car?');">
-                        Delete
-                    </a>
+                <td class="action-links">
+                    <a th:href="@{/edit/{id}(id=${car.id})}" class="btn edit">Edit</a>
+                    <a th:href="@{/delete/{id}(id=${car.id})}" class="btn delete"
+                       onclick="return confirm('Are you sure?');">Delete</a>
                 </td>
             </tr>
+
             <tr th:if="${#lists.isEmpty(cars)}">
                 <td colspan="10">No cars found.</td>
             </tr>
@@ -66,10 +58,9 @@
         </table>
     </div>
 
-    <!-- ✅ Logout button -->
     <form th:action="@{/logout}" method="post" class="logout-form">
-        <button type="submit" class="btn logout">Logout</button>
+        <button type="submit" class="logout-btn">Logout</button>
     </form>
-</main>
+</div>
 </body>
 </html>
