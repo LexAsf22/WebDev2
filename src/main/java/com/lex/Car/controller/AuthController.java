@@ -1,7 +1,6 @@
 package com.lex.Car.controller;
 
 import com.lex.Car.service.UserService;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,11 +17,7 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String login(Authentication authentication) {
-        if (authentication != null && authentication.isAuthenticated()
-                && !(authentication.getPrincipal() instanceof String)) {
-            return "redirect:/"; // or "redirect:/dashboard"
-        }
+    public String login() {
         return "login"; // login.html
     }
 
@@ -37,4 +32,5 @@ public class AuthController {
         userService.registerUser(username, password);
         return "redirect:/login";
     }
+
 }

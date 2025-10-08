@@ -17,6 +17,8 @@ public class CarService {
         this.carRepository = carRepository;
     }
 
+// ===== Original Working Methods =====
+
     public List<Car> findAll() {
         return carRepository.findAll();
     }
@@ -40,8 +42,7 @@ public class CarService {
     }
 
     public Car updateCar(Long id, CarDTO carDTO) {
-        Car car = findById(id); // throws exception if not found
-
+        Car car = findById(id);
         car.setMake(carDTO.getMake());
         car.setModel(carDTO.getModel());
         car.setYear(carDTO.getYear());
@@ -50,7 +51,6 @@ public class CarService {
         car.setBodyType(carDTO.getBodyType());
         car.setEngineType(carDTO.getEngineType());
         car.setTransmission(carDTO.getTransmission());
-
         return carRepository.save(car);
     }
 
@@ -59,6 +59,31 @@ public class CarService {
             throw new ResourceNotFoundException("Car with ID " + id + " not found.");
         }
         carRepository.deleteById(id);
+    }
+
+    public List<Car> searchCars(String keyword) {
+        return carRepository
+                .findByMakeContainingIgnoreCaseOrModelContainingIgnoreCaseOrLicensePlateNumberContainingIgnoreCase(
+                        keyword, keyword, keyword
+                );
+    }
+
+// ===== Added for Compatibility with Teacher's Code =====
+
+    public List<Car> getAllCars() {
+        return findAll();
+    }
+
+    public Car getCarById(Long id) {
+        return findById(id);
+    }
+
+    public void update(Long id, CarDTO carDTO) {
+        updateCar(id, carDTO);
+    }
+
+    public void delete(Long id) {
+        deleteCar(id);
     }
 
 }

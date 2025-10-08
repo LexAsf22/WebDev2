@@ -21,29 +21,27 @@ public class CarController {
     }
 
     // GET all cars
-    // localhost:8000/api/cars
     @GetMapping("/cars")
     public List<Car> getAllCars() {
         return carService.findAll();
     }
 
-    // POST new car
+    // POST a new car
     @PostMapping("/cars")
     public Car newCar(@Valid @RequestBody CarDTO car) {
         return carService.save(car);
     }
 
-    // PUT update car by ID
+    // PUT - update existing car by ID
     @PutMapping("/cars/{id}")
-    public Car updateCar(@PathVariable Long id, @Valid @RequestBody CarDTO carDTO) {
-        Car updateCar = carService.findById(id);
-        if (updateCar == null) {
+    public Car updateCar(@PathVariable Long id, @Valid @RequestBody CarDTO car) {
+        if (carService.findById(id) == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Car with ID " + id + " not found.");
         }
-        return carService.updateCar(id, carDTO);
+        return carService.updateCar(id, car);
     }
 
-    // DELETE car by ID
+    // DELETE - remove car by ID
     @DeleteMapping("/cars/{id}")
     public void deleteCar(@PathVariable Long id) {
         if (carService.findById(id) == null) {
@@ -51,4 +49,6 @@ public class CarController {
         }
         carService.deleteCar(id);
     }
+
+
 }

@@ -14,10 +14,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final CustomUserDetailsService customUserDetailsService;
+    private final CustomUserDetailsService userDetailsService;
 
     public SecurityConfig(CustomUserDetailsService userDetailsService) {
-        this.customUserDetailsService = userDetailsService;
+        this.userDetailsService = userDetailsService;
     }
 
     @Bean
@@ -28,7 +28,7 @@ public class SecurityConfig {
     @Bean
     public DaoAuthenticationProvider authProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(customUserDetailsService);
+        authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
@@ -36,24 +36,21 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // Disable CSRF only for APIs, keep it for web forms
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
-
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register", "/style.css", "/main.css", "/error.css", "/login").permitAll()
+                        .requestMatchers("/login", "/register", "/css/**", "/api/**",
+                                "/style.css", "/main.css", "/error.css").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated() // everything else needs login
+                        .anyRequest().authenticated()
                 )
-
                 .formLogin(login -> login
-                        .loginPage("/login")               // custom login page
-                        .defaultSuccessUrl("/", true)      // redirect after login
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/", true)
                         .permitAll()
                 )
-
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout") // redirect after logout
+                        .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 );
 
