@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crud App</title>
+    <script src="http://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <button onclick="openModal()" class="bg-blue-500 text-white rounded-md px-4 py-2">Add New Car</button>
+    <table class="tableMain border-collapse border border-gray-400 w-full">
+        <thead>
+            <tr id="tableHeader" class="bg-gray-200">
+                <th class="border px-4 py-2">ID</th>
+                <th class="border px-4 py-2">Make</th>
+                <th class="border px-4 py-2">Model</th>
+                <th class="border px-4 py-2">Year</th>
+                <th class="border px-4 py-2">License Plate Number</th>
+                <th class="border px-4 py-2">Color</th>
+                <th class="border px-4 py-2">Body Type</th>
+                <th class="border px-4 py-2">Engine Type</th>
+                <th class="border px-4 py-2">Transmission</th>
+                <th class="border px-4 py-2">Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+    </table>
+
+    <div id="formSection" class="hidden fixed inset-0 bg-gray-500  bg-opacity-50">
+        <div class="bg-white p-6 rounded-md w-96 mx-auto mt-20">
+            <h2 id="modalTitle" class="text-xl mb-4">Add New Car</h2>
+            <form id="carForm" onsubmit="saveCar(event)">
+                <div class="md-2"> 
+                    <label class="block txt-gray-700">Make</label>
+                    <input class="border p-2 mb-2 w-full" type="text" id="make" placeholder="Make">
+                </div>
+                <div>
+                    <label class="block txt-gray-700">Model</label>
+                    <input class="border p-2 mb-2 w-full" type="text" id="model" placeholder="Model">
+                </div>
+                <div>
+                    <label class="block txt-gray-700">Year</label>
+                    <input class="border p-2 mb-2 w-full" type="number" id="year" placeholder="Year">
+                </div>
+                <div>
+                    <label class="block txt-gray-700">License Plate Number</label>
+                    <input class="border p-2 mb-2 w-full" type="text" id="licensePlateNumber"
+                        placeholder="License Plate Number">
+                </div>
+                <div>
+                    <label class="block txt-gray-700">Color</label>
+                    <input class="border p-2 mb-2 w-full" type="text" id="color" placeholder="Color">
+                </div>
+                <div>
+                    <label class="block txt-gray-700">Body Type</label>
+                    <input class="border p-2 mb-2 w-full" type="text" id="bodyType" placeholder="Body Type">
+                </div>
+                <div>
+                    <label class="block txt-gray-700">Engine Type</label>
+                    <input class="border p-2 mb-2 w-full" type="text" id="engineType" placeholder="Engine Type">
+                </div>
+                <div>
+                    <label class="block txt-gray-700">Transmission</label>
+                    <input class="border p-2 mb-2 w-full" type="text" id="transmission" placeholder="Transmission">
+                </div>
+                    <button onclick="closeModal()" type="button" class="bg-green-500 text-white px-4 py-2 rounded-md" id="addCarBtn">Cancel</button>
+                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md">Save</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <div>
+        <div>
+            <h2 class="text-xl mb-4">Login</h2>
+            <input class="border p-2 mb-2 w-full" type="text" id="username" placeholder="Username">
+            <input class="border p-2 mb-4 w-full" type="password" id="password" placeholder="Password">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-md" id="loginBtn">Login</button>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
