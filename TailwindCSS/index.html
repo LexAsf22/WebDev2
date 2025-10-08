@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+    <header>
+        <nav class="shadow-sm bg-white">
+  <div class="max-w-4xl mx-auto py-3 flex items-center justify-between relative">
+    <!-- Left: logo/title (unchanged) -->
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 bg-blue-500 text-white rounded-md flex items-center justify-center font-semibold">
+        Z
+      </div>
+      <div class="text-lg font-medium">Zed Co.</div>
+    </div>
+
+    <!-- Right: checkbox + hamburger label + menus -->
+    <div class="flex items-center">
+      <!-- hidden checkbox (peer) -->
+      <input id="menu-toggle" type="checkbox" class="peer hidden" />
+
+      <!-- hamburger icon (visible on small screens only) -->
+      <label for="menu-toggle" class="md:hidden flex flex-col gap-1 cursor-pointer" aria-hidden="true">
+        <span class="block w-6 h-0.5 bg-gray-700"></span>
+        <span class="block w-6 h-0.5 bg-gray-700"></span>
+        <span class="block w-6 h-0.5 bg-gray-700"></span>
+      </label>
+
+      <!-- Desktop menu (visible md and up) -->
+      <div class="hidden md:flex space-x-4 ml-4">
+        <a href="#" class="hover:text-blue-500 text-sm">Home</a>
+        <a href="#" class="hover:text-blue-500 text-sm">About</a>
+        <a href="#" class="hover:text-blue-500 text-sm">Contact</a>
+      </div>
+
+      <!-- Mobile dropdown (hidden by default, shown when checkbox is checked) -->
+      <div
+        class="peer-checked:block hidden md:hidden absolute right-4 top-full mt-2 w-44 bg-white shadow-md rounded-md p-3 space-y-2 z-50">
+        <a href="#" class="block text-sm hover:text-blue-500">Home</a>
+        <a href="#" class="block text-sm hover:text-blue-500">About</a>
+        <a href="#" class="block text-sm hover:text-blue-500">Contact</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+        <div class="shadow-md rounded-2xl bg-white p-10 max-w-4xl mx-auto my-12">
+            <h1 class="text-2xl font-bold mb-2">Build interfaces with Tailwind CSS</h1>
+            <p class="text-gray-600 mb-6">Utility-first classes let you compose UI directly in HTML. Enjoy
+                Coding/Styling!</p>
+            <div class="flex gap-3">
+                <a href="#" class="bg-blue-500 text-white px-4 py-2 rounded-md">Try Components</a>
+                <a href="#" class="px-4 py-2 rounded-md border">Do practice tasks</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-lg font-bold">Card Components</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
+                <div class="shadow-md bg-white rounded-md px-4 py-3">
+                    <h2 class="font-semibold">User</h2>
+                    <p class="text-sm text-gray-600">Name, role, quick actions</p>
+                    <div class="mt-3 flex justify-end">
+                        <a href="#" class="px-3 py-1 border rounded text-sm">Edit</a>
+                    </div>
+                </div>
+                <div class="shadow-md bg-white rounded-md px-4 py-3">
+                    <h2 class="font-semibold">Stats</h2>
+                    <p class="text-sm text-gray-600">Show counters or badges here.</p>
+                    <div class="flex gap-4">
+                        <h2 class="font-bold text-2xl">42</h2>
+                        <p class="text-sm text-gray-600 flex items-center">Active</p>
+                    </div>
+                </div>
+                <div class="shadow-md bg-white rounded-md px-4 py-3">
+                    <h2 class="font-semibold">Notes</h2>
+                    <p class="text-sm text-gray-600">Short multi-line content fits well.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-12 max-w-4xl mx-auto ">
+            <h2 class="text-lg font-bold mb-4">Simple form</h2>
+            <div class="bg-white shadow-md rounded-md p-10">
+                <form class="space-y-4">
+                    <div>
+                        <label class="block font-medium">Name</label>
+                        <input type="text" placeholder="Your Name" class="mt-1 w-full border rounded-md px-3 py-2">
+                    </div>
+                    <div>
+                        <label class="block font-medium">Email</label>
+                        <input type="email" placeholder="you@example.com" class="mt-1 w-full border rounded-md px-3 py-2">
+                    </div>
+                    <div>
+                        <label class="block font-medium">Message</label>
+                        <textarea placeholder="Short note" class="mt-1 w-full border rounded-md px-3 py-2"></textarea>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <p class="text-gray-600">Try changing classes to see effects.</p>
+                        <a href="#" class="bg-blue-500 text-white px-4 py-2 rounded-md">Send</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto mt-12 mb-6">
+            <h2 class="text-lg font-bold mb-4">Table</h2>
+            <div class="overflow-x-auto bg-white shadow-md rounded-lg overflow-hidden">
+                <table class="min-w-full text-sm text-left">
+                    <thead class="bg-gray-200 font-medium">
+                        <tr>
+                            <td class="px-6 py-3">#</td>
+                            <td class="px-6 py-3">Name</td>
+                            <td class="px-6 py-3">Role</td>
+                            <td class="px-6 py-3">Status</td>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        <tr>
+                            <td class="px-6 py-4">1</td>
+                            <td class="px-6 py-4">Ana</td>
+                            <td class="px-6 py-4">Student</td>
+                            <td class="px-6 py-4">
+                                <p class="w-14 px-2 py-1 font-semibold bg-green-100 rounded-md">Active</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4">2</td>
+                            <td class="px-6 py-4">Ben</td>
+                            <td class="px-6 py-4">Instructor</td>
+                            <td class="px-6 py-4">
+                                <p class="w-16 px-2 py-1 font-semibold bg-yellow-100 rounded-md">Pending</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <footer class="max-w-4xl mx-auto">
+        <p class="bg-white shadow-sm rounded-md px-4 py-2 flex items-center justify-center">Use this file to teach
+            utility classes and rapid prototyping.</p>
+    </footer>
+</body>
+
+</html>
