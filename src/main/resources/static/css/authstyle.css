@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+/* Reset & base */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+/* 🌸 Subtle animated gradient background in lavender and pink */
+body {
+    font-family: 'Inter', sans-serif;
+    color: #4a4a4a; /* soft dark gray for text */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+
+    background: linear-gradient(135deg, #e6e6fa, #ffb6c1, #dda0dd, #ffc0cb);
+    background-size: 250% 250%;
+    animation: gradientShift 20s ease infinite;
+}
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 🪟 Form container with elegant glass effect */
+.login-form {
+    width: 100%;
+    max-width: 420px;
+    background: rgba(255, 255, 255, 0.9); /* soft white translucent */
+    backdrop-filter: blur(10px);
+    padding: clamp(20px, 4vw, 32px);
+    border-radius: 16px;
+    box-shadow: 0 6px 22px rgba(221, 160, 221, 0.25); /* lavender shadow */
+    margin: 0;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+/* Fade in */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Title */
+.login-form h2 {
+    text-align: center;
+    color: #c71585; /* medium violet red for elegance */
+    font-weight: 700;
+    margin: 0 0 18px 0;
+    font-size: clamp(1.25rem, 3vw, 1.8rem);
+    text-shadow: 0 0 6px rgba(199, 21, 133, 0.2);
+}
+
+/* Inputs */
+.login-form input {
+    padding: clamp(10px, 2vw, 14px);
+    border: 1px solid #dda0dd; /* plum border */
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #4a4a4a;
+    font-size: clamp(0.9rem, 1.4vw, 1rem);
+    transition: border 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+}
+.login-form input:focus {
+    outline: none;
+    border-color: #c71585;
+    box-shadow: 0 0 6px rgba(199, 21, 133, 0.3);
+    background: rgba(255, 255, 255, 1);
+}
+
+/* Button */
+.login-form button {
+    width: 100%;
+    padding: clamp(10px, 2.2vw, 14px);
+    margin-top: 8px;
+    background: linear-gradient(135deg, #ffb6c1, #dda0dd); /* light pink to plum */
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 700;
+    font-size: clamp(0.95rem, 1.6vw, 1rem);
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+.login-form button:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #dda0dd, #c71585); /* plum to medium violet red */
+    box-shadow: 0 4px 14px rgba(221, 160, 221, 0.35);
+}
+
+/* Link */
+.login-form a {
+    display: block;
+    margin-top: 14px;
+    text-align: center;
+    color: #8a2be2; /* blue violet */
+    text-decoration: none;
+    font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+.login-form a:hover {
+    color: #c71585;
+    text-decoration: underline;
+}
+
+/* Small screens */
+@media (max-width: 520px) {
+    body {
+        align-items: flex-start;
+        padding: 16px;
+    }
+
+    .login-form {
+        max-width: 100%;
+        padding: 18px;
+        max-height: calc(100vh - 32px);
+    }
+}
+
+@media (max-width: 420px) {
+    html, body {
+        overflow-x: hidden;
+    }
+}

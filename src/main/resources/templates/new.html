@@ -1,77 +1,61 @@
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="/css/new.css">
-    <title>Add Car</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Car</title>
+    <link rel="stylesheet" th:href="@{/css/form.css}">
 </head>
 <body>
-<div class="container">
+
+<form th:action="@{/save}" th:object="${car}" method="post">
     <h1>Add New Car</h1>
 
-    <!-- Use carDTO as the form object -->
-    <form th:action="@{/save}" th:object="${carDTO}" method="post" class="car-form">
+    <label for="make">Make:</label>
+    <input id="make" type="text" th:field="*{make}"/>
+    <div class="error" th:if="${#fields.hasErrors('make')}" th:errors="*{make}" ></div>
 
-        <label>License Plate:</label>
-        <input type="text" th:field="*{licensePlateNumber}" placeholder="e.g., XXX 6969"/>
-        <div class="error" th:if="${#fields.hasErrors('licensePlateNumber')}" th:errors="*{licensePlateNumber}"></div>
+    <label for="model">Model:</label>
+    <input id="model" type="text" th:field="*{model}"/>
+    <div class="error" th:if="${#fields.hasErrors('model')}" th:errors="*{model}" ></div>
 
-        <label>Make:</label>
-        <input type="text" th:field="*{make}" placeholder="e.g., Lexus"/>
-        <div class="error" th:if="${#fields.hasErrors('make')}" th:errors="*{make}"></div>
+    <label for="year">Year:</label>
+    <input id="year" type="number" th:field="*{year}"/>
+    <div class="error" th:if="${#fields.hasErrors('year')}" th:errors="*{year}" ></div>
 
-        <label>Model:</label>
-        <input type="text" th:field="*{model}" placeholder="e.g., LC"/>
-        <div class="error" th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></div>
+    <label for="licensePlateNumber">License Plate Number:</label>
+    <input id="licensePlateNumber" type="text" th:field="*{licensePlateNumber}"/>
+    <div class="error" th:if="${#fields.hasErrors('licensePlateNumber')}" th:errors="*{licensePlateNumber}"></div>
 
-        <label>Year:</label>
-        <input type="number" th:field="*{year}" placeholder="e.g., 2020"/>
-        <div class="error" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></div>
+    <label for="color">Color:</label>
+    <input id="color" type="text" th:field="*{color}"/>
+    <div class="error" th:if="${#fields.hasErrors('color')}" th:errors="*{color}" ></div>
 
-        <label>Color:</label>
-        <input type="text" th:field="*{color}" placeholder="e.g., Blue" />
-        <div class="error" th:if="${#fields.hasErrors('color')}" th:errors="*{color}"></div>
+    <label for="bodyType">Body Type:</label>
+    <select id="bodyType" th:field="*{bodyType}">
+        <option value="" disabled selected>-- Select Body Type --</option>
+        <option th:each="t : ${body}" th:value="${t}" th:text="${t}"></option>
+    </select>
+    <div class="error" th:if="${#fields.hasErrors('bodyType')}" th:errors="*{bodyType}" ></div>
 
-        <label>Body Type:</label>
-        <select th:field="*{bodyType}" >
-            <option value="">-- Select Body Type --</option>
-            <option value="Sedan">Sedan</option>
-            <option value="SUV">SUV</option>
-            <option value="Hatchback">Hatchback</option>
-            <option value="Coupe">Coupe</option>
-            <option value="Convertible">Convertible</option>
-            <option value="Pickup">Pickup</option>
-            <option value="Van">Van</option>
-            <option value="Wagon">Wagon</option>
-            <option value="Sports Car">Sports Car</option>
-            <option value="Crossover">Crossover</option>
-            <option value="Minivan">Minivan</option>
-        </select>
-        <div class="error" th:if="${#fields.hasErrors('bodyType')}" th:errors="*{bodyType}"></div>
+    <label for="engineType">Engine Type:</label>
+    <select id="engineType" th:field="*{engineType}">
+        <option value="" disabled selected>-- Select Engine Type --</option>
+        <option th:each="t : ${types}" th:value="${t}" th:text="${t}"></option>
+    </select>
+    <div class="error" th:if="${#fields.hasErrors('engineType')}" th:errors="*{engineType}" ></div>
 
-        <label>Engine Type:</label>
-        <select th:field="*{engineType}">
-            <option value="">-- Select Engine Type --</option>
-            <option value="Gasoline">Gasoline</option>
-            <option value="Diesel">Diesel</option>
-            <option value="Electric">Electric</option>
-            <option value="Hybrid">Hybrid</option>
-        </select>
-        <div class="error" th:if="${#fields.hasErrors('engineType')}" th:errors="*{engineType}"></div>
+    <label for="transmission">Transmission:</label>
+    <select id="transmission" th:field="*{transmission}">
+        <option value="" disabled selected>-- Select Transmission --</option>
+        <option th:each="t : ${sizes}" th:value="${t}" th:text="${t}"></option>
+    </select>
+    <div class="error" th:if="${#fields.hasErrors('transmission')}" th:errors="*{transmission}" ></div>
 
-        <label>Transmission:</label>
-        <select th:field="*{transmission}" >
-            <option value="">-- Select Transmission --</option>
-            <option value="Automatic">Automatic</option>
-            <option value="Manual">Manual</option>
-            <option value="Semi-Automatic">Semi-Automatic</option>
-        </select>
-        <div class="error" th:if="${#fields.hasErrors('transmission')}" th:errors="*{transmission}"></div>
+    <button type="submit">Save Car</button>
+    <a href="/">Cancel</a>
+</form>
 
-        <button type="submit" class="add-button">Add Car</button>
-    </form>
-
-    <a th:href="@{/}" class="back-link">Back to Car List</a>
-</div>
 </body>
 </html>

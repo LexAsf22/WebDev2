@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Error</title>
-    <link rel="stylesheet" href="/css/error.css">
+    <link rel="stylesheet" th:href="@{/css/error.css}">
 </head>
 <body>
-<div class="error-container">
-    <h1 class="error-title">404 – Page Not Found</h1>
-    <p class="error-display">We searched everywhere, but that page can't be found.</p>
-    <p class="message" th:text="${message}"></p>
-    <a class="home-link" th:href="@{/}">← Back to Home</a>
+<div class="container">
+    <h1>There seems to be a problem with the site</h1>
+    <p th:text="${message}">Wew</p>
+    <a th:href="@{/}">Back to Home</a>
 </div>
+
 </body>
 </html>
