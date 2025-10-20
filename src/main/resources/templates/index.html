@@ -9,25 +9,21 @@
 <body>
 <main>
     <div class="top-bar">
-        <h1>List of Cars</h1>
+        <h1>Car List</h1>
 
-        <form th:action="@{/}" method="get" class="search-form">
-            <input type="text" name="search" placeholder="Search cars..." th:value="${search}">
-            <button type="submit">Search</button>
-        </form>
-
-        <a th:href="@{/new}" class="btn add-btn">Add Car</a>
+        <!-- Add new car -->
+        <a th:href="@{/create}" class="btn add-btn">Add Car</a>
     </div>
 
     <div class="table-container">
         <table>
             <thead>
             <tr>
-                <th>ID</th>
+                <th>ID</th> <!-- Changed from ID to UI counter -->
+                <th>License Plate</th>
                 <th>Make</th>
                 <th>Model</th>
                 <th>Year</th>
-                <th>License Plate</th>
                 <th>Color</th>
                 <th>Body Type</th>
                 <th>Engine Type</th>
@@ -36,12 +32,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="car, iterStat : ${cars}">
-                <td th:text="${iterStat.index + 1}"></td>
-                <td th:text="${car.make}"></td>
-                <td th:text = "${car.model}"></td>
-                <td th:text="${car.year}"></td>
+            <tr th:each="car, stat : ${cars}">
+                <!-- Continuous numbering -->
+                <td th:text="${stat.index + 1}"></td>
+
                 <td th:text="${car.licensePlateNumber}"></td>
+                <td th:text="${car.make}"></td>
+                <td th:text="${car.model}"></td>
+                <td th:text="${car.year}"></td>
                 <td th:text="${car.color}"></td>
                 <td th:text="${car.bodyType}"></td>
                 <td th:text="${car.engineType}"></td>
@@ -55,14 +53,12 @@
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(cars)}">
-                <td colspan="9">No cars found.</td>
+                <td colspan="10">No cars found.</td>
             </tr>
             </tbody>
         </table>
     </div>
-    <form th:action="@{/logout}" method="post" class="logout-form">
-        <button type="submit" class="btn logout">Logout</button>
-    </form>
+    <a th:href="@{/login?logout}" class="logout-btn">Logout</a>
 </main>
 </body>
 </html>

@@ -1,30 +1,22 @@
 package com.lex.Car.controller.web;
 
 import com.lex.Car.service.UserService;
-import org.springframework.security.core.Authentication;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-public class AuthControl {
+public class AuthController {
 
     private final UserService userService;
 
-    public AuthControl(UserService userService) {
+    public AuthController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/login")
-    public String login(Authentication authentication) {
-
-        if (authentication != null && authentication.isAuthenticated()
-                && !(authentication.getPrincipal() instanceof String)) {
-            return "redirect:/"; // change "/" to "/dashboard" if you prefer
-        }
-
+    public String login() {
         return "login"; // login.html
     }
 
@@ -37,6 +29,13 @@ public class AuthControl {
     @PostMapping("/register")
     public String register(@RequestParam String username, @RequestParam String password) {
         userService.registerUser(username, password);
+        return "redirect:/login";
+    }
+
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
         return "redirect:/login";
     }
 }

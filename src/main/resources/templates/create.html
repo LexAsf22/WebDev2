@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Car</title>
+    <title>Add Car</title>
     <link rel="stylesheet" th:href="@{/css/create.css}">
 </head>
-
 <body>
-<form th:action="@{/update}" th:object="${car}" method="post">
-    <h1>Edit Car</h1>
-    <input type="hidden" th:field="*{id}"/>
+
+<form th:action="@{/save}" th:object="${car}" method="post">
+    <h1>Add New Car</h1>
 
     <label for="licensePlateNumber">License Plate:</label>
     <input id="licensePlateNumber" type="text" th:field="*{licensePlateNumber}"/>
@@ -62,8 +61,9 @@
     </select>
     <div th:if="${#fields.hasErrors('transmission')}" th:errors="*{transmission}"></div>
 
-    <button type="submit" class="update-btn">Update Car</button>
+    <button type="submit">Save Car</button>
     <a href="/">Cancel</a>
 </form>
+
 </body>
 </html>

@@ -5,11 +5,8 @@
     <link rel="stylesheet" th:href="@{/css/error.css}">
 </head>
 <body>
-<div class="container">
-    <h1>There seems to be a problem with the site</h1>
-    <p th:text="${message}">Wew</p>
-    <a th:href="@{/}">Back to Home</a>
-</div>
-
+<h1>Oops... Something went wrong!</h1>
+<p th:text="${message}"></p>
+<a th:href="@{/}">Back to Home</a>
 </body>
 </html>
