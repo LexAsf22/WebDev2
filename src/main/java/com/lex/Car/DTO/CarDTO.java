@@ -15,7 +15,6 @@ public class CarDTO {
     @NotBlank(message = "Model is required")
     private String model;
 
-
     @Min(1900)
     @Max(2025)
     private int year;

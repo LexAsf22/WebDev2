@@ -1,5 +1,6 @@
 package com.lex.Car.controller.api;
 
+
 import com.lex.Car.DTO.CarDTO;
 import com.lex.Car.model.Car;
 import com.lex.Car.service.CarService;
@@ -10,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class CarController {
@@ -38,7 +40,6 @@ public class CarController {
         }
         return carService.updateCar(updateCar, car);
     }
-
 
     @DeleteMapping("/cars/{id}")
     public void deleteCar(@PathVariable int id) {
