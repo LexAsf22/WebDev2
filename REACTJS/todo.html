@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tailwind To-Do App</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-8">
+
+  <h1 class="text-3xl font-bold text-blue-600 mb-6">My To-Do List</h1>
+
+  <div class="bg-white shadow-md rounded-lg w-full max-w-md p-6">
+    <div class="flex mb-4">
+      <input
+        id="taskInput"
+        type="text"
+        placeholder="Enter new task..."
+        class="flex-grow border border-gray-300 rounded-l-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <button
+        id="addButton"
+        class="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition"
+      >
+        Add
+      </button>
+    </div>
+
+    <ul id="taskList" class="divide-y divide-gray-200"></ul>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      let tasks = [
+        { title: "Clean bedroom", isDone: false },
+        { title: "Water plants", isDone: false },
+      ];
+
+      const taskList = document.getElementById("taskList");
+      const taskInput = document.getElementById("taskInput");
+      const addButton = document.getElementById("addButton");
+
+      function renderTasks() {
+        taskList.innerHTML = "";
+        tasks.forEach((task, index) => {
+          const li = document.createElement("li");
+          li.className = "flex justify-between items-center py-2";
+
+          const left = document.createElement("div");
+          left.className = "flex items-center gap-2";
+
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.checked = task.isDone;
+          checkbox.className = "w-4 h-4 accent-blue-500";
+          checkbox.onchange = () => toggleDone(index);
+
+          const titleSpan = document.createElement("span");
+          titleSpan.textContent = task.title;
+          titleSpan.className = `${
+            task.isDone ? "line-through text-gray-400" : "text-gray-800"
+          }`;
+
+          left.appendChild(checkbox);
+          left.appendChild(titleSpan);
+
+          const buttons = document.createElement("div");
+          buttons.className = "flex gap-2";
+
+          const editBtn = document.createElement("button");
+          editBtn.textContent = "Edit";
+          editBtn.className =
+            "bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded-md text-sm";
+          editBtn.onclick = () => editTask(index);
+
+          const delBtn = document.createElement("button");
+          delBtn.textContent = "Delete";
+          delBtn.className =
+            "bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm";
+          delBtn.onclick = () => deleteTask(index);
+
+          buttons.appendChild(editBtn);
+          buttons.appendChild(delBtn);
+
+          li.appendChild(left);
+          li.appendChild(buttons);
+          taskList.appendChild(li);
+        });
+      }
+
+      function addTask() {
+        const title = taskInput.value.trim();
+        if (!title) return;
+        tasks.push({ title, isDone: false });
+        taskInput.value = "";
+        renderTasks();
+      }
+
+      function toggleDone(index) {
+        tasks[index].isDone = !tasks[index].isDone;
+        renderTasks();
+      }
+
+      function editTask(index) {
+        const newTitle = prompt("Edit task:", tasks[index].title);
+        if (newTitle !== null && newTitle.trim() !== "") {
+          tasks[index].title = newTitle.trim();
+          renderTasks();
+        }
+      }
+
+      function deleteTask(index) {
+        tasks.splice(index, 1);
+        renderTasks();
+      }
+
+      addButton.addEventListener("click", addTask);
+      taskInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") addTask();
+      });
+
+      renderTasks();
+    });
+  </script>
+</body>
+</html>
