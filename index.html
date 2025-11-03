@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lexus Inventory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              lexusBlack: "#0b0b0b",
+              lexusGray: "#1c1c1c",
+              lexusSilver: "#bfbfbf",
+              lexusWhite: "#f5f5f5",
+            },
+            fontFamily: {
+              sans: ["'Helvetica Neue'", "Arial", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="bg-gradient-to-br from-lexusBlack via-lexusGray to-black min-h-screen flex items-center justify-center p-8 text-lexusWhite font-sans">
+    <div id="root" class="w-full flex justify-center items-center"></div>
+
+    <script type="text/babel">
+      const apiBase = "http://localhost:2025/api/cars";
+      const loginUrl = "http://localhost:2025/api/auth/login";
+      const registerUrl = "http://localhost:2025/api/auth/register";
+
+      function App() {
+        const [cars, setCars] = React.useState([]);
+        const [showModal, setShowModal] = React.useState(false);
+        const [token, setToken] = React.useState(localStorage.getItem("token") || "");
+        const [editingCar, setEditingCar] = React.useState(null);
+        const [form, setForm] = React.useState({
+          licensePlateNumber: "",
+          make: "",
+          model: "",
+          year: "",
+          color: "",
+          bodyType: "",
+          engineType: "",
+          transmission: ""
+        });
+
+        const [loginForm, setLoginForm] = React.useState({ username: "", password: "" });
+        const [registerForm, setRegisterForm] = React.useState({ username: "", password: "" });
+        const [showRegister, setShowRegister] = React.useState(false);
+
+        React.useEffect(() => {
+          if (token) fetchCars();
+        }, [token]);
+
+        function fetchCars() {
+          fetch(apiBase, { headers: { Authorization: `Bearer ${token}` } })
+            .then(res => res.json())
+            .then(setCars)
+            .catch(console.error);
+        }
+
+        function openCreateModal() {
+          setEditingCar(null);
+          setForm({
+            licensePlateNumber: "",
+            make: "",
+            model: "",
+            year: "",
+            color: "",
+            bodyType: "",
+            engineType: "",
+            transmission: ""
+          });
+          setShowModal(true);
+        }
+
+        function openEditModal(car) {
+          setEditingCar(car);
+          setForm({
+            licensePlateNumber: car.licensePlateNumber,
+            make: car.make,
+            model: car.model,
+            year: car.year,
+            color: car.color,
+            bodyType: car.bodyType,
+            engineType: car.engineType,
+            transmission: car.transmission
+          });
+          setShowModal(true);
+        }
+
+        function closeModal() {
+          setShowModal(false);
+        }
+
+        function handleChange(e) {
+          const { id, value } = e.target;
+          setForm(prev => ({ ...prev, [id]: value }));
+        }
+
+        function handleLoginChange(e) {
+          const { id, value } = e.target;
+          setLoginForm(prev => ({ ...prev, [id]: value }));
+        }
+
+        function handleRegisterChange(e) {
+          const { id, value } = e.target;
+          setRegisterForm(prev => ({ ...prev, [id]: value }));
+        }
+
+        function saveCar(e) {
+          e.preventDefault();
+          const method = editingCar ? "PUT" : "POST";
+          const url = editingCar ? `${apiBase}/${editingCar.id}` : apiBase;
+
+          fetch(url, {
+            method,
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(form)
+          })
+            .then(res => res.json())
+            .then(() => {
+              closeModal();
+              fetchCars();
+            })
+            .catch(console.error);
+        }
+
+        function deleteCar(id) {
+          if (!confirm("Delete this car?")) return;
+          fetch(`${apiBase}/${id}`, {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${token}` }
+          })
+            .then(() => fetchCars())
+            .catch(console.error);
+        }
+
+        function loginUser(e) {
+          e.preventDefault();
+          fetch(loginUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(loginForm)
+          })
+            .then(res => {
+              if (!res.ok) throw new Error("Invalid credentials");
+              return res.json();
+            })
+            .then(data => {
+              localStorage.setItem("token", data.token);
+              setToken(data.token);
+              fetchCars();
+            })
+            .catch(() => alert("Login failed. Please check your credentials."));
+        }
+
+        function registerUser(e) {
+          e.preventDefault();
+          fetch(registerUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(registerForm)
+          })
+            .then(res => {
+              if (!res.ok) throw new Error("Registration failed");
+              return res.json();
+            })
+            .then(() => {
+              alert("Registration successful! Please log in.");
+              setShowRegister(false);
+            })
+            .catch(() => alert("Registration failed. Try again."));
+        }
+
+        function logout() {
+          localStorage.removeItem("token");
+          setToken("");
+          setCars([]);
+        }
+
+        // LOGIN PAGE
+        if (!token) {
+          return (
+            <div className="fixed inset-0 flex items-center justify-center bg-black/80 backdrop-blur-md">
+              <div className="bg-gradient-to-br from-lexusGray to-lexusBlack rounded-2xl shadow-2xl w-[28rem] p-10 border border-lexusSilver/30">
+                <h2 className="text-4xl font-bold mb-6 text-lexusSilver text-center tracking-wide">
+                  {showRegister ? "Register - LEXUS 🚘" : "LEXUS Login 🚘"}
+                </h2>
+
+                {showRegister ? (
+                  <form onSubmit={registerUser}>
+                    <div className="mb-5">
+                      <label className="block text-lexusSilver font-medium mb-1">Username</label>
+                      <input
+                        id="username"
+                        value={registerForm.username}
+                        onChange={handleRegisterChange}
+                        className="border border-lexusSilver/40 bg-transparent focus:ring-2 focus:ring-lexusSilver text-lexusWhite p-3 w-full rounded-md outline-none"
+                        required
+                      />
+                    </div>
+                    <div className="mb-8">
+                      <label className="block text-lexusSilver font-medium mb-1">Password</label>
+                      <input
+                        id="password"
+                        type="password"
+                        value={registerForm.password}
+                        onChange={handleRegisterChange}
+                        className="border border-lexusSilver/40 bg-transparent focus:ring-2 focus:ring-lexusSilver text-lexusWhite p-3 w-full rounded-md outline-none"
+                        required
+                      />
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <button
+                        type="button"
+                        onClick={() => setShowRegister(false)}
+                        className="text-lexusSilver hover:underline"
+                      >
+                        Already have an account? Login
+                      </button>
+                      <button
+                        type="submit"
+                        className="px-6 py-2 bg-lexusSilver text-black font-semibold rounded-md hover:bg-white transition"
+                      >
+                        Register
+                      </button>
+                    </div>
+                  </form>
+                ) : (
+                  <form onSubmit={loginUser}>
+                    <div className="mb-5">
+                      <label className="block text-lexusSilver font-medium mb-1">Username</label>
+                      <input
+                        id="username"
+                        value={loginForm.username}
+                        onChange={handleLoginChange}
+                        className="border border-lexusSilver/40 bg-transparent focus:ring-2 focus:ring-lexusSilver text-lexusWhite p-3 w-full rounded-md outline-none"
+                        required
+                      />
+                    </div>
+                    <div className="mb-8">
+                      <label className="block text-lexusSilver font-medium mb-1">Password</label>
+                      <input
+                        id="password"
+                        type="password"
+                        value={loginForm.password}
+                        onChange={handleLoginChange}
+                        className="border border-lexusSilver/40 bg-transparent focus:ring-2 focus:ring-lexusSilver text-lexusWhite p-3 w-full rounded-md outline-none"
+                        required
+                      />
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <button
+                        type="button"
+                        onClick={() => setShowRegister(true)}
+                        className="text-lexusSilver hover:underline"
+                      >
+                        Create Account
+                      </button>
+                      <button
+                        type="submit"
+                        className="px-6 py-2 bg-lexusSilver text-black font-semibold rounded-md hover:bg-white transition"
+                      >
+                        Login
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </div>
+            </div>
+          );
+        }
+
+        // MAIN DASHBOARD
+        return (
+          <div className="w-full max-w-6xl bg-lexusGray/70 backdrop-blur-lg shadow-2xl rounded-2xl p-8 border border-lexusSilver/20">
+            <div className="flex justify-between items-center mb-6">
+              <h1 className="text-3xl font-bold text-lexusSilver tracking-wide flex items-center space-x-2">
+                <span>🚘</span>
+                <span>LEXUS Inventory</span>
+              </h1>
+              <div className="space-x-3">
+                <button
+                  onClick={openCreateModal}
+                  className="bg-lexusSilver text-black px-5 py-2 rounded-lg hover:bg-white transition font-semibold"
+                >
+                  + Add Car
+                </button>
+                <button
+                  onClick={logout}
+                  className="bg-red-600 text-white px-5 py-2 rounded-lg hover:bg-red-700 transition"
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full border border-lexusSilver/20 text-sm">
+                <thead className="bg-gradient-to-r from-lexusSilver/10 to-transparent text-lexusSilver uppercase">
+                  <tr>
+                    {["#", "License Plate", "Make", "Model", "Year", "Color", "Body Type", "Engine", "Transmission", "Actions"].map(header => (
+                      <th key={header} className="p-3 border border-lexusSilver/10 text-center font-semibold">{header}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {cars.map((car, index) => (
+                    <tr key={car.id} className="text-center hover:bg-lexusSilver/10 transition">
+                      <td className="border border-lexusSilver/10 p-2">{index + 1}</td>
+                      <td className="border border-lexusSilver/10 p-2">{car.licensePlateNumber}</td>
+                      <td className="border border-lexusSilver/10 p-2">{car.make}</td>
+                      <td className="border border-lexusSilver/10 p-2">{car.model}</td>
+                      <td className="border border-lexusSilver/10 p-2">{car.year}</td>
+                      <td className="border border-lexusSilver/10 p-2">{car.color}</td>
+                      <td className="border border-lexusSilver/10 p-2">{car.bodyType}</td>
+                      <td className="border border-lexusSilver/10 p-2">{car.engineType}</td>
+                      <td className="border border-lexusSilver/10 p-2">{car.transmission}</td>
+                      <td className="border border-lexusSilver/10 p-2 space-x-2">
+                        <button
+                          onClick={() => openEditModal(car)}
+                          className="bg-lexusSilver text-black px-3 py-1 rounded hover:bg-white font-medium"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => deleteCar(car.id)}
+                          className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 font-medium"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {showModal && (
+              <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-10">
+                <div className="bg-lexusGray border border-lexusSilver/30 rounded-xl shadow-2xl w-96 p-6 text-lexusWhite">
+                  <h2 className="text-2xl font-semibold mb-4 text-lexusSilver">
+                    {editingCar ? "Edit Car 🚘" : "Add New Car 🚘"}
+                  </h2>
+                  <form onSubmit={saveCar}>
+                    {[
+                      ["licensePlateNumber", "License Plate"],
+                      ["make", "Make"],
+                      ["model", "Model"],
+                      ["year", "Year", "number"],
+                      ["color", "Color"],
+                      ["bodyType", "Body Type"],
+                      ["engineType", "Engine Type"],
+                      ["transmission", "Transmission"]
+                    ].map(([id, label, type = "text"]) => (
+                      <div className="mb-3" key={id}>
+                        <label className="block text-lexusSilver mb-1">{label}</label>
+                        <input
+                          id={id}
+                          type={type}
+                          value={form[id]}
+                          onChange={handleChange}
+                          className="border border-lexusSilver/40 bg-transparent text-lexusWhite p-2 w-full rounded outline-none focus:ring-2 focus:ring-lexusSilver"
+                          required
+                        />
+                      </div>
+                    ))}
+                    <div className="flex justify-end mt-5 space-x-2">
+                      <button
+                        type="button"
+                        onClick={closeModal}
+                        className="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        className="px-4 py-2 bg-lexusSilver text-black font-semibold rounded hover:bg-white"
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+  </body>
+</html>
