@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to bottom right, #fce4ec, #e6e6fa);
+    color: #4a148c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+
+form {
+    background-color: #ffffff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+
+form h1 {
+    font-size: 2rem;
+    color: #880e4f;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    color: #6a1b9a;
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ce93d8;
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: #fefefe;
+    transition: border-color 0.3s ease;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #f06292;
+}
+
+div[th\\:if] {
+    font-size: 0.85rem;
+    color: #d32f2f;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+button[type="submit"] {
+    background-color: #f8bbd0;
+    color: #4a148c;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+    background-color: #f48fb1;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+a[href="/"] {
+    display: inline-block;
+    text-align: center;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #6a1b9a;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    width: 100%;
+}
+
+a[href="/"]:hover {
+    color: #ad1457;
+}
+
+
+.update-btn {
+    background-color: #e1bee7; /* lighter lavender */
+    color: #4a148c;
+}
+
+.update-btn:hover {
+    background-color: #ce93d8;
+}
+
